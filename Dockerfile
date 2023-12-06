@@ -1,4 +1,4 @@
-FROM 594769675851.dkr.ecr.ap-southeast-1.amazonaws.com/node:16.13.0-alpine
+FROM node:16.13.0-alpine
 
 USER root
 
