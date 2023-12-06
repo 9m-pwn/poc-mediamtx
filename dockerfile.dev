@@ -1,0 +1,21 @@
+FROM node:16.13.0-alpine
+
+# Create app directory
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+# Install dependencies
+COPY package*.json ./
+
+RUN npm install
+
+# Bundle app source 
+COPY . .
+
+COPY config/mediamtx.yml mediamtx.yml
+
+# Exports
+
+EXPOSE 3001 3002 3005
+
+CMD [ "npm", "run", "start:dev" ]

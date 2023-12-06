@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  
+  poc_mediamtx:
+    container_name: poc-mediamtx
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./dockerfile.dev
+    command: npm run start:dev
+    volumes:
+      - ./:/usr/src/app
+      - ./node_modules:/usr/src/app/node_modules
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    
+  mediamtx:
+    image: bluenviron/mediamtx:latest-ffmpeg
+    environment:
+      - MTX_PROTOCOLS=tcp
+    ports:
+      - "8554:8554" #RTSP
+      - "1935:1935" #RTMP
+      - "8888:8888" #HTTP
+      - "8889:8889" #HTTPS
+    volumes:
+      - ./videos:/usr/src/app/videos
+      # - ./config/mediamtx.yml:mediamtx.yml
+      - ./bin:/usr/src/app/bin 
